@@ -5,6 +5,7 @@ const sequelize = require('./config/database');
 const path = require('path');
 const delay = require('express-delay');
 
+
 const app = express();
 
 app.use(cors());
@@ -13,7 +14,6 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 const alunoRoutes = require('./routes/alunoRoutes');
 const fotoRoutes = require('./routes/fotoRoutes');
-
 
 app.use(delay(1000));
 app.use('/api/auth', authRoutes);
@@ -27,7 +27,7 @@ sequelize
   .catch((err) => console.log('Erro ao conectar ao MySQL:', err));
 
 sequelize
-  .sync({ alter: true })
+  .sync({ force: true })
   .then(() => console.log('Tabelas sincronizadas!'))
   .catch((err) => console.log('Erro ao sincronizar tabelas:', err));
 

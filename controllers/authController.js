@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
     const user = await User.create({ nome, email, senha: hashedPassword });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: '7d',
     });
     res.status(201).json({ user: { id: user.id, nome, email }, token });
   } catch (error) {
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Senha incorreta' });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: '7d',
     });
     res.json({ user: { id: user.id, nome: user.nome, email }, token });
   } catch (error) {

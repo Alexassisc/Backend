@@ -49,6 +49,10 @@ exports.buscarAluno = async (req, res) => {
 
 exports.criarAluno = async (req, res) => {
   try {
+
+    if (req.body.email) {
+      req.body.email = req.body.email.toLowerCase();
+    }
     const aluno = await Aluno.create(req.body);
     res.status(201).json(aluno);
   } catch (error) {
@@ -78,6 +82,10 @@ exports.atualizarAluno = async (req, res) => {
     const aluno = await Aluno.findByPk(req.params.id);
     if (!aluno)
       return res.status(404).json({ message: 'Aluno não encontrado' });
+
+    if(req.body.email) {
+      req.body.email = reqbody.email.toLowerCase();
+    }
 
     await aluno.update(req.body);
     res.json(aluno);

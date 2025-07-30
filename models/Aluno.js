@@ -11,28 +11,24 @@ const Aluno = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, 
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+      set(value) {
+        this.setDataValue('email', value.toLowerCase());
+      },
     },
     idade: {
       type: DataTypes.INTEGER,
     },
     matricula: {
       type: DataTypes.STRING,
-      unique: true, 
+      unique: true,
     },
   },
   {
     timestamps: true,
-    indexes: [
-      {
-        unique: true,
-        fields: ['email'],
-      },
-      {
-        unique: true,
-        fields: ['matricula'],
-      },
-    ],
   }
 );
 
