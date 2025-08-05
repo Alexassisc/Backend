@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter });
 
 router.get('/', authMiddleware, fotoController.listarFotos);
-router.post('/', authMiddleware, upload.array('foto', 3), fotoController.criarFoto); 
+router.post('/', authMiddleware, upload.array('fotos', 10), fotoController.criarFoto); 
 router.delete('/:id', authMiddleware, fotoController.deletarFoto);
 
 module.exports = router;

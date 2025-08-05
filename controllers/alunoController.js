@@ -49,21 +49,20 @@ exports.buscarAluno = async (req, res) => {
 
 exports.criarAluno = async (req, res) => {
   try {
-
     if (req.body.email) {
       req.body.email = req.body.email.toLowerCase();
     }
+
     const aluno = await Aluno.create(req.body);
     res.status(201).json(aluno);
   } catch (error) {
     console.error('Erro ao criar aluno:', error);
 
     if (error.name === 'SequelizeUniqueConstraintError') {
-      // Array para armazenar as mensagens de erro
       const details = error.errors.map((e) => {
         if (e.path === 'email') return 'email must be unique';
         if (e.path === 'matricula') return 'matricula must be unique';
-        return e.message; // mensagem genérica para outros casos
+        return e.message;
       });
 
       return res.status(400).json({
@@ -83,8 +82,8 @@ exports.atualizarAluno = async (req, res) => {
     if (!aluno)
       return res.status(404).json({ message: 'Aluno não encontrado' });
 
-    if(req.body.email) {
-      req.body.email = reqbody.email.toLowerCase();
+    if (req.body.email) {
+      req.body.email = req.body.email.toLowerCase();
     }
 
     await aluno.update(req.body);
